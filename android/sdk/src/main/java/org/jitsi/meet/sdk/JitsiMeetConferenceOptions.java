@@ -232,9 +232,7 @@ public class JitsiMeetConferenceOptions implements Parcelable {
         if (audioMuted != null) {
             config.putBoolean("startWithAudioMuted", audioMuted);
         }
-        if (audioOnly != null) {
-            config.putBoolean("startAudioOnly", audioOnly);
-        }
+            config.putBoolean("startAudioOnly", true);
         if (videoMuted != null) {
             config.putBoolean("startWithVideoMuted", videoMuted);
         }

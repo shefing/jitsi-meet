@@ -73,17 +73,7 @@ class WelcomePage extends AbstractWelcomePage {
 
         const { dispatch } = this.props;
 
-        if (this.props._settings.startAudioOnly) {
             dispatch(destroyLocalTracks());
-        } else {
-            // Make sure we don't request the permission for the camera from
-            // the start. We will, however, create a video track iff the user
-            // already granted the permission.
-            navigator.permissions.query({ name: 'camera' }).then(response => {
-                response === 'granted'
-                    && dispatch(createDesiredLocalTracks(MEDIA_TYPE.VIDEO));
-            });
-        }
     }
 
     /**
