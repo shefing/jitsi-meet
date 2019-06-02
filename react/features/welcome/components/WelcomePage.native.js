@@ -3,36 +3,25 @@ import {
     Animated,
     Keyboard,
     SafeAreaView,
-    TextInput,
     TouchableHighlight,
-    TouchableOpacity,
     View
 } from 'react-native';
 
 import { ColorSchemeRegistry } from '../../base/color-scheme';
 import { translate } from '../../base/i18n';
-import { Icon } from '../../base/font-icons';
-import { MEDIA_TYPE } from '../../base/media';
-import { Header, LoadingIndicator, Text } from '../../base/react';
+import {  LoadingIndicator, Text } from '../../base/react';
 import { connect } from '../../base/redux';
 import { ColorPalette } from '../../base/styles';
 import {
-    createDesiredLocalTracks,
     destroyLocalTracks
 } from '../../base/tracks';
-import { DialInSummary } from '../../invite';
-import { SettingsView } from '../../settings';
 
 import {
     AbstractWelcomePage,
     _mapStateToProps as _abstractMapStateToProps
 } from './AbstractWelcomePage';
-import { setSideBarVisible } from '../actions';
 import LocalVideoTrackUnderlay from './LocalVideoTrackUnderlay';
-import styles, { PLACEHOLDER_TEXT_COLOR } from './styles';
-import VideoSwitch from './VideoSwitch';
-import WelcomePageLists from './WelcomePageLists';
-import WelcomePageSideBar from './WelcomePageSideBar';
+import styles from './styles';
 
 /**
  * The native container rendering the welcome page.
@@ -51,13 +40,6 @@ class WelcomePage extends AbstractWelcomePage {
         this.state._fieldFocused = false;
         this.state.hintBoxAnimation = new Animated.Value(0);
 
-        // Bind event handlers so they are only bound once per instance.
-        this._onFieldFocusChange = this._onFieldFocusChange.bind(this);
-        this._onShowSideBar = this._onShowSideBar.bind(this);
-
-        // Specially bind functions to avoid function definition on render.
-        this._onFieldBlur = this._onFieldFocusChange.bind(this, false);
-        this._onFieldFocus = this._onFieldFocusChange.bind(this, true);
     }
 
     /**
@@ -95,78 +77,18 @@ class WelcomePage extends AbstractWelcomePage {
                             {this._renderJoinButton()}
                         </View>
                     </SafeAreaView>
-                    <DialInSummary />
                 </View>
             </LocalVideoTrackUnderlay>
         );
     }
 
-    /**
-     * Constructs a style array to handle the hint box animation.
-     *
-     * @private
-     * @returns {Array<Object>}
-     */
-    _getHintBoxStyle() {
-        return [
-            styles.hintContainer,
-            {
-                opacity: this.state.hintBoxAnimation
-            }
-        ];
-    }
 
-    /**
-     * Callback for when the room field's focus changes so the hint box
-     * must be rendered or removed.
-     *
-     * @private
-     * @param {boolean} focused - The focused state of the field.
-     * @returns {void}
-     */
-    _onFieldFocusChange(focused) {
-        focused
-            && this.setState({
-                _fieldFocused: true
-            });
-
-        Animated.timing(
-            this.state.hintBoxAnimation,
-            {
-                duration: 300,
-                toValue: focused ? 1 : 0
-            })
-            .start(animationState =>
-                animationState.finished
-                && !focused
-                && this.setState({
-                    _fieldFocused: false
-                }));
-    }
-
-    /**
-     * Toggles the side bar.
-     *
-     * @private
-     * @returns {void}
-     */
-    _onShowSideBar() {
-        Keyboard.dismiss();
-        this.props.dispatch(setSideBarVisible(true));
-    }
-
-    /**
-     * Renders the hint box if necessary.
-     *
-     * @private
-     * @returns {React$Node}
-     */
 
     /**
     * Renders the join button.
     *
     * @private
-    * @returns {ReactElement}
+    * @returns{ReactElement}
     */
     _renderJoinButton() {
         const { t } = this.props;

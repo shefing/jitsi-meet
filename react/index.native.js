@@ -17,24 +17,13 @@ import { App } from './features/app';
 import { IncomingCallApp } from './features/mobile/incoming-call';
 
 /**
- * The type of the React {@code Component} props of {@link Root}.
- */
-type Props = {
-
-    /**
-     * The URL, if any, with which the app was launched.
-     */
-    url: Object | string
-};
-
-/**
  * React Native doesn't support specifying props to the main/root component (in
  * the JS/JSX source code). So create a wrapper React Component (class) around
  * features/app's App instead.
  *
  * @extends Component
  */
-class Root extends PureComponent<Props> {
+class Root extends PureComponent {
     /**
      * Implements React's {@link Component#render()}.
      *
@@ -43,8 +32,7 @@ class Root extends PureComponent<Props> {
      */
     render() {
         return (
-            <App
-                { ...this.props } />
+            <App { ...this.props } />
         );
     }
 }
