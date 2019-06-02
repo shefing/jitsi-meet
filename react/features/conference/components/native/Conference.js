@@ -23,8 +23,7 @@ import {
 } from '../../../filmstrip';
 import { LargeVideo } from '../../../large-video';
 import { AddPeopleDialog, CalleeInfoContainer } from '../../../invite';
-import { Captions } from '../../../subtitles';
-import { setToolboxVisible, Toolbox } from '../../../toolbox';
+import { setToolboxVisible } from '../../../toolbox';
 
 import {
     AbstractConference,
@@ -242,14 +241,9 @@ class Conference extends AbstractConference<Props, *> {
 
                     <Labels />
 
-                    <Captions onPress = { this._onClick } />
 
                     { _shouldDisplayTileView || <DisplayNameLabel participantId = { _largeVideoParticipantId } /> }
 
-                    {/*
-                      * The Toolbox is in a stacking layer bellow the Filmstrip.
-                      */}
-                    <Toolbox />
 
                     {/*
                       * The Filmstrip is in a stacking layer above the
