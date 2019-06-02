@@ -62,7 +62,7 @@ class VideoSwitch extends Component<Props> {
      */
     render() {
         const { t, _headerStyles, _settings } = this.props;
-
+return null
         return (
             <View style = { styles.audioVideoSwitchContainer }>
                 <TouchableWithoutFeedback

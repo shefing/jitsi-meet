@@ -54,7 +54,6 @@ class WelcomePage extends AbstractWelcomePage {
         // Bind event handlers so they are only bound once per instance.
         this._onFieldFocusChange = this._onFieldFocusChange.bind(this);
         this._onShowSideBar = this._onShowSideBar.bind(this);
-        this._renderHintBox = this._renderHintBox.bind(this);
 
         // Specially bind functions to avoid function definition on render.
         this._onFieldBlur = this._onFieldFocusChange.bind(this, false);
@@ -99,46 +98,23 @@ class WelcomePage extends AbstractWelcomePage {
         const { _headerStyles, t } = this.props;
 
         return (
-            <LocalVideoTrackUnderlay style = { styles.welcomePage }>
-                <View style = { _headerStyles.page }>
-                    <Header style = { styles.header }>
-                        <TouchableOpacity onPress = { this._onShowSideBar } >
+            <LocalVideoTrackUnderlay style={styles.welcomePage}>
+                <View style={_headerStyles.page}>
+                    <Header style={styles.header}>
+                        <TouchableOpacity onPress={this._onShowSideBar} >
                             <Icon
-                                name = 'menu'
-                                style = { _headerStyles.headerButtonIcon } />
+                                name='menu'
+                                style={_headerStyles.headerButtonIcon} />
                         </TouchableOpacity>
                         <VideoSwitch />
                     </Header>
-                    <SafeAreaView style = { styles.roomContainer } >
-                        <View style = { styles.joinControls } >
-                            <TextInput
-                                accessibilityLabel = { t(roomnameAccLabel) }
-                                autoCapitalize = 'none'
-                                autoComplete = 'off'
-                                autoCorrect = { false }
-                                autoFocus = { false }
-                                onBlur = { this._onFieldBlur }
-                                onChangeText = { this._onRoomChange }
-                                onFocus = { this._onFieldFocus }
-                                onSubmitEditing = { this._onJoin }
-                                placeholder = { t('welcomepage.roomname') }
-                                placeholderTextColor = {
-                                    PLACEHOLDER_TEXT_COLOR
-                                }
-                                returnKeyType = { 'go' }
-                                style = { styles.textInput }
-                                underlineColorAndroid = 'transparent'
-                                value = { this.state.room } />
-                            {
-                                this._renderHintBox()
-                            }
+                    <SafeAreaView style={styles.roomContainer} >
+                        <View style={styles.joinControls} >
+                            {this._renderJoinButton()}
                         </View>
                     </SafeAreaView>
-                    <WelcomePageLists disabled = { this.state._fieldFocused } />
-                    <SettingsView />
                     <DialInSummary />
                 </View>
-                <WelcomePageSideBar />
             </LocalVideoTrackUnderlay>
         );
     }
@@ -180,10 +156,10 @@ class WelcomePage extends AbstractWelcomePage {
             })
             .start(animationState =>
                 animationState.finished
-                    && !focused
-                    && this.setState({
-                        _fieldFocused: false
-                    }));
+                && !focused
+                && this.setState({
+                    _fieldFocused: false
+                }));
     }
 
     /**
@@ -203,33 +179,13 @@ class WelcomePage extends AbstractWelcomePage {
      * @private
      * @returns {React$Node}
      */
-    _renderHintBox() {
-        if (this.state._fieldFocused) {
-            const { t } = this.props;
-
-            return (
-                <Animated.View style = { this._getHintBoxStyle() }>
-                    <View style = { styles.hintTextContainer } >
-                        <Text style = { styles.hintText }>
-                            { t('welcomepage.roomnameHint') }
-                        </Text>
-                    </View>
-                    <View style = { styles.hintButtonContainer } >
-                        { this._renderJoinButton() }
-                    </View>
-                </Animated.View>
-            );
-        }
-
-        return null;
-    }
 
     /**
-     * Renders the join button.
-     *
-     * @private
-     * @returns {ReactElement}
-     */
+    * Renders the join button.
+    *
+    * @private
+    * @returns {ReactElement}
+    */
     _renderJoinButton() {
         const { t } = this.props;
         let children;
@@ -242,14 +198,14 @@ class WelcomePage extends AbstractWelcomePage {
             children = (
                 <View>
                     <LoadingIndicator
-                        color = { styles.buttonText.color }
-                        size = 'small' />
+                        color={styles.buttonText.color}
+                        size='small' />
                 </View>
             );
         } else {
             children = (
-                <Text style = { styles.buttonText }>
-                    { this.props.t('welcomepage.join') }
+                <Text style={styles.buttonText}>
+                    {this.props.t('welcomepage.join')}
                 </Text>
             );
         }
@@ -259,16 +215,16 @@ class WelcomePage extends AbstractWelcomePage {
 
         return (
             <TouchableHighlight
-                accessibilityLabel =
-                    { t('welcomepage.accessibilityLabel.join') }
-                disabled = { buttonDisabled }
-                onPress = { this._onJoin }
-                style = { [
+                accessibilityLabel=
+                {t('welcomepage.accessibilityLabel.join')}
+                disabled={buttonDisabled}
+                onPress={this._onJoin}
+                style={[
                     styles.button,
                     buttonDisabled ? styles.buttonDisabled : null
-                ] }
-                underlayColor = { ColorPalette.white }>
-                { children }
+                ]}
+                underlayColor={ColorPalette.white}>
+                {children}
             </TouchableHighlight>
         );
     }

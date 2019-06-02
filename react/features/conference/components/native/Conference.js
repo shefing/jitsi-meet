@@ -13,7 +13,6 @@ import {
     makeAspectRatioAware
 } from '../../../base/responsive-ui';
 import { TestConnectionInfo } from '../../../base/testing';
-import { ConferenceNotification } from '../../../calendar-sync';
 import { Chat } from '../../../chat';
 import { DisplayNameLabel } from '../../../display-name';
 import {
@@ -273,10 +272,6 @@ class Conference extends AbstractConference<Props, *> {
 
                 <TestConnectionInfo />
 
-                {
-                    this._renderConferenceNotification()
-                }
-
             </Container>
         );
     }
@@ -330,15 +325,6 @@ class Conference extends AbstractConference<Props, *> {
      * @private
      * @returns {React$Node}
      */
-    _renderConferenceNotification() {
-        // XXX If the calendar feature is disabled on a platform, then we don't
-        // have its components exported so an undefined check is necessary.
-        return (
-            !this.props._reducedUI && ConferenceNotification
-                ? <ConferenceNotification />
-                : undefined);
-    }
-
     /**
      * Renders a container for notifications to be displayed by the
      * base/notifications feature.

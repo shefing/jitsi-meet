@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { translate } from '../../base/i18n';
 import { PagedList } from '../../base/react';
 import { connect } from '../../base/redux';
-import { CalendarList } from '../../calendar-sync';
 import { RecentList } from '../../recent-list';
 
 import { setWelcomePageListsDefaultPage } from '../actions';
@@ -68,11 +67,6 @@ class WelcomePageLists extends Component<Props> {
                 component: RecentList,
                 icon: 'restore',
                 title: t('welcomepage.recentList')
-            },
-            {
-                component: CalendarList,
-                icon: 'event_note',
-                title: t('welcomepage.calendar')
             }
         ];
 

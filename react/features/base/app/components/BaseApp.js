@@ -133,7 +133,6 @@ export default class BaseApp extends Component<*, State> {
                             { this._createMainElement(component) }
                             <SoundCollection />
                             { this._createExtraElement() }
-                            { this._renderDialogContainer() }
                         </Fragment>
                     </Provider>
                 </I18nextProvider>
@@ -243,10 +242,4 @@ export default class BaseApp extends Component<*, State> {
         });
     }
 
-    /**
-     * Renders the platform specific dialog container.
-     *
-     * @returns {React$Element}
-     */
-    _renderDialogContainer: () => React$Element<*>
 }

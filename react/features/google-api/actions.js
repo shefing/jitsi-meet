@@ -12,21 +12,6 @@ import { GOOGLE_API_STATES } from './constants';
 import googleApi from './googleApi';
 
 /**
- * Retrieves the current calendar events.
- *
- * @param {number} fetchStartDays - The number of days to go back when fetching.
- * @param {number} fetchEndDays - The number of days to fetch.
- * @returns {function(Dispatch<any>): Promise<CalendarEntries>}
- */
-export function getCalendarEntries(
-        fetchStartDays: ?number, fetchEndDays: ?number) {
-    return () =>
-        googleApi.get()
-        .then(() =>
-            googleApi._getCalendarEntries(fetchStartDays, fetchEndDays));
-}
-
-/**
  * Loads Google API.
  *
  * @param {string} clientId - The client ID to be used with the API library.

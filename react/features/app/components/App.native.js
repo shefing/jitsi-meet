@@ -5,7 +5,6 @@ import React from 'react';
 import '../../analytics';
 import '../../authentication';
 import { setColorScheme } from '../../base/color-scheme';
-import { DialogContainer } from '../../base/dialog';
 import '../../base/jwt';
 import { Platform } from '../../base/react';
 import {
@@ -155,16 +154,7 @@ export class App extends AbstractApp {
         }
     }
 
-    /**
-     * Renders the platform specific dialog container.
-     *
-     * @returns {React$Element}
-     */
-    _renderDialogContainer() {
-        return (
-            <DialogContainer />
-        );
-    }
+
 }
 
 /**

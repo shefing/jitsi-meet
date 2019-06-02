@@ -65,7 +65,7 @@ export class AbstractWelcomePage extends Component<Props, *> {
         animateTimeoutId: undefined,
         generatedRoomname: '',
         joining: false,
-        room: '',
+        room: 'Shefing',
         roomPlaceholder: '',
         updateTimeoutId: undefined
     };

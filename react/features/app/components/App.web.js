@@ -36,11 +36,4 @@ export class App extends AbstractApp {
      *
      * @returns {React$Element}
      */
-    _renderDialogContainer() {
-        return (
-            <AtlasKitThemeProvider mode = 'dark'>
-                <DialogContainer />
-            </AtlasKitThemeProvider>
-        );
-    }
 }

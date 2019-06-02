@@ -577,12 +577,6 @@ export default {
             initialDevices.push('audio');
             requestedAudio = true;
         }
-        if (!options.startWithVideoMuted
-                && !options.startAudioOnly
-                && !options.startScreenSharing) {
-            initialDevices.push('video');
-            requestedVideo = true;
-        }
 
         JitsiMeetJS.mediaDevices.addEventListener(
             JitsiMediaDevicesEvents.PERMISSION_PROMPT_IS_SHOWN,
@@ -1380,8 +1374,8 @@ export default {
      * @returns {boolean}
      */
     isAudioOnly() {
-        return Boolean(
-            APP.store.getState()['features/base/conference'].audioOnly);
+        return true/*Boolean(
+            APP.store.getState()['features/base/conference'].audioOnly);*/
     },
 
     videoSwitchInProgress: false,
