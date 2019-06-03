@@ -20,14 +20,6 @@ export const API_URL_BROADCAST_STREAMS = 'https://content.googleapis.com/youtube
 export const API_URL_LIVE_BROADCASTS = 'https://content.googleapis.com/youtube/v3/liveBroadcasts?broadcastType=all&mine=true&part=id%2Csnippet%2CcontentDetails%2Cstatus';
 
 /**
- * Array of API discovery doc URLs for APIs used by the googleApi.
- *
- * @type {string[]}
- */
-export const DISCOVERY_DOCS
-    = [ 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest' ];
-
-/**
  * An enumeration of the different states the Google API can be in.
  *
  * @private
@@ -56,12 +48,6 @@ export const GOOGLE_API_STATES = {
     NOT_AVAILABLE: 3
 };
 
-/**
- * Google API auth scope to access Google calendar.
- *
- * @type {string}
- */
-export const GOOGLE_SCOPE_CALENDAR = 'https://www.googleapis.com/auth/calendar';
 
 /**
  * Google API auth scope to access YouTube streams.

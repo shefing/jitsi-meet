@@ -29,25 +29,6 @@
         "audioOnly": "Audio only",
         "featureToggleDisabled": "Toggling of __feature__ is disabled while in audio only mode"
     },
-    "calendarSync": {
-        "addMeetingURL": "Add a meeting link",
-        "confirmAddLink": "Do you want to add a Jitsi link to this event?",
-        "confirmAddLinkTitle": "Calendar",
-        "error": {
-            "appConfiguration": "Calendar integration is not properly configured.",
-            "generic": "An error has occurred. Please check your calendar settings or try refreshing the calendar.",
-            "notSignedIn": "An error occurred while authenticating to see calendar events. Please check your calendar settings and try logging in again."
-        },
-        "join": "Join",
-        "joinTooltip": "Join the meeting",
-        "nextMeeting": "next meeting",
-        "noEvents": "There are no upcoming events scheduled.",
-        "ongoingMeeting": "ongoing meeting",
-        "permissionButton": "Open settings",
-        "permissionMessage": "The Calendar permission is required to see your meetings in the app.",
-        "refresh": "Refresh calendar",
-        "today": "Today"
-    },
     "chat": {
         "error": "Error: your message \"__originalText__\" was not sent. Reason: __error__",
         "messagebox": "Type a message",
@@ -543,13 +524,6 @@
     },
     "settings": {
         "audioVideo": "AUDIO AND VIDEO",
-        "calendar": {
-            "about": "The __appName__ calendar integration is used to securely access your calendar so it can read upcoming events.",
-            "disconnect": "Disconnect",
-            "microsoftSignIn": "Sign in with Microsoft",
-            "signedIn": "Currently accessing calendar events for __email__. Click the Disconnect button below to stop accessing calendar events.",
-            "title": "Calendar"
-        },
         "cameraAndMic": "Camera and microphone",
         "devices": "Devices",
         "followMe": "Everyone follows me",
@@ -770,9 +744,6 @@
             "audio": "Voice",
             "video": "Video"
         },
-        "calendar": "Calendar",
-        "connectCalendarButton": "Connect your calendar",
-        "connectCalendarText": "Connect your calendar to view all your meetings in __app__. Plus, add __provider__ meetings to your calendar and start them with one click.",
         "enterRoomTitle": "Start a new meeting",
         "go": "GO",
         "join": "JOIN",

@@ -88,8 +88,6 @@ PODS:
     - React/Core (= 0.59.8)
   - react-native-background-timer (2.1.1):
     - React
-  - react-native-calendar-events (1.6.4):
-    - React
   - react-native-fast-image (5.1.1):
     - FLAnimatedImage
     - React
@@ -180,7 +178,6 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - ObjectiveDropboxOfficial (~> 3.9.4)
   - react-native-background-timer (from `../node_modules/react-native-background-timer`)
-  - react-native-calendar-events (from `../node_modules/react-native-calendar-events`)
   - react-native-fast-image (from `../node_modules/react-native-fast-image`)
   - react-native-keep-awake (from `../node_modules/react-native-keep-awake`)
   - react-native-webrtc (from `../node_modules/react-native-webrtc`)
@@ -237,8 +234,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-background-timer:
     :path: "../node_modules/react-native-background-timer"
-  react-native-calendar-events:
-    :path: "../node_modules/react-native-calendar-events"
   react-native-fast-image:
     :path: "../node_modules/react-native-fast-image"
   react-native-keep-awake:
@@ -285,7 +280,6 @@ SPEC CHECKSUMS:
   ObjectiveDropboxOfficial: a5afefc83f6467c42c45f2253f583f2ad1ffc701
   React: 76e6aa2b87d05eb6cccb6926d72685c9a07df152
   react-native-background-timer: 0d34748e53a972507c66963490c775321a88f6f2
-  react-native-calendar-events: ee9573e355711ac679e071be70789542431f4ce3
   react-native-fast-image: 47487b71169aea34868e7b38bf870b6b3f2157c5
   react-native-keep-awake: eba3137546b10003361b37c761f6c429b59814ae
   react-native-webrtc: 90a847d19deb2d7323fef8cc89ca12b8995fbc90
