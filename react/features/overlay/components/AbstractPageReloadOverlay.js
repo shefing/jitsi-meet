@@ -14,7 +14,6 @@ import {
     isFatalJitsiConnectionError
 } from '../../base/lib-jitsi-meet';
 
-import ReloadButton from './web/ReloadButton';
 
 declare var APP: Object;
 
@@ -235,9 +234,6 @@ export default class AbstractPageReloadOverlay<P: Props>
      */
     _renderButton() {
         if (this.props.isNetworkFailure) {
-            return (
-                <ReloadButton textKey = 'dialog.rejoinNow' />
-            );
         }
 
         return null;
