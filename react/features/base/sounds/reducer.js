@@ -52,18 +52,18 @@ ReducerRegistry.register(
     'features/base/sounds',
     (state = DEFAULT_STATE, action) => {
         switch (action.type) {
-        case _ADD_AUDIO_ELEMENT:
-        case _REMOVE_AUDIO_ELEMENT:
-            return _addOrRemoveAudioElement(state, action);
+            case _ADD_AUDIO_ELEMENT:
+            case _REMOVE_AUDIO_ELEMENT:
+                return _addOrRemoveAudioElement(state, action);
 
-        case REGISTER_SOUND:
-            return _registerSound(state, action);
+            case REGISTER_SOUND:
+                return _registerSound(state, action);
 
-        case UNREGISTER_SOUND:
-            return _unregisterSound(state, action);
+            case UNREGISTER_SOUND:
+                return _unregisterSound(state, action);
 
-        default:
-            return state;
+            default:
+                return state;
         }
     });
 
@@ -77,6 +77,7 @@ ReducerRegistry.register(
  * @returns {Map<string, Sound>}
  */
 function _addOrRemoveAudioElement(state, action) {
+
     const isAddAction = action.type === _ADD_AUDIO_ELEMENT;
     const nextState = new Map(state);
     const { soundId } = action;

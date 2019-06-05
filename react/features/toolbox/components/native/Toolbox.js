@@ -15,7 +15,6 @@ import { HANGUP_BUTTON_SIZE } from '../../constants';
 import AudioMuteButton from '../AudioMuteButton';
 import HangupButton from '../HangupButton';
 
-import OverflowMenuButton from './OverflowMenuButton';
 import styles from './styles';
 import VideoMuteButton from '../VideoMuteButton';
 
@@ -250,9 +249,6 @@ class Toolbox extends Component<Props, State> {
                 <HangupButton
                     styles = { _styles.hangupButtonStyles } />
                 <VideoMuteButton
-                    styles = { buttonStyles }
-                    toggledStyles = { toggledButtonStyles } />
-                <OverflowMenuButton
                     styles = { buttonStyles }
                     toggledStyles = { toggledButtonStyles } />
             </View>

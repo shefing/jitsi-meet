@@ -1,12 +1,5 @@
 // @flow
 
-import {
-    ACTION_SHORTCUT_TRIGGERED,
-    VIDEO_MUTE,
-    createShortcutEvent,
-    createToolbarEvent,
-    sendAnalytics
-} from '../../analytics';
 import { translate } from '../../base/i18n';
 import {
     MEDIA_TYPE,
@@ -123,11 +116,6 @@ class VideoMuteButton extends AbstractVideoMuteButton<Props, *> {
      * @returns {void}
      */
     _onKeyboardShortcut() {
-        sendAnalytics(
-            createShortcutEvent(
-                VIDEO_MUTE,
-                ACTION_SHORTCUT_TRIGGERED,
-                { enable: !this._isVideoMuted() }));
 
         super._handleClick();
     }
@@ -141,7 +129,6 @@ class VideoMuteButton extends AbstractVideoMuteButton<Props, *> {
      * @returns {void}
      */
     _setVideoMuted(videoMuted: boolean) {
-        sendAnalytics(createToolbarEvent(VIDEO_MUTE, { enable: videoMuted }));
         this.props.dispatch(
             setVideoMuted(
                 videoMuted,

@@ -1,14 +1,6 @@
 // @flow
 
 import { reloadNow } from '../../app';
-import {
-    ACTION_PINNED,
-    ACTION_UNPINNED,
-    createAudioOnlyChangedEvent,
-    createConnectionEvent,
-    createPinnedEvent,
-    sendAnalytics
-} from '../../analytics';
 import { CONNECTION_ESTABLISHED, CONNECTION_FAILED } from '../connection';
 import { setVideoMuted, VIDEO_MUTISM_AUTHORITY } from '../media';
 import {
@@ -381,12 +373,6 @@ function _isMaybeSplitBrainError(getState, action) {
         const isWithinSplitBrainThreshold = !timeEstablished
             || timeSinceConnectionEstablished <= reloadThreshold;
 
-        sendAnalytics(createConnectionEvent('failed', {
-            ...error,
-            connectionEstablished: timeEstablished,
-            splitBrain: isWithinSplitBrainThreshold,
-            timeSinceConnectionEstablished
-        }));
 
         return isWithinSplitBrainThreshold;
     }
@@ -434,14 +420,6 @@ function _pinParticipant({ getState }, next, action) {
             participantIdForEvent = actionName === ACTION_PINNED
                 ? id : pinnedParticipant && pinnedParticipant.id;
         }
-
-        sendAnalytics(createPinnedEvent(
-            actionName,
-            participantIdForEvent,
-            {
-                local,
-                'participant_count': conference.getParticipantCount()
-            }));
     }
 
     // The following condition prevents signaling to pin local participant and
@@ -493,10 +471,9 @@ function _setAudioOnly({ dispatch, getState }, next, action) {
     // I don't know why it has to happen as early as possible but the analytics
     // were originally sent before the SET_AUDIO_ONLY action was even dispatched
     // in the redux store so I'm now sending the analytics as early as possible.
-    if (oldValue !== newValue) {
-        sendAnalytics(createAudioOnlyChangedEvent(newValue));
-        logger.log(`Audio-only ${newValue ? 'enabled' : 'disabled'}`);
-    }
+    // if (oldValue !== newValue) {
+    //     logger.log(`Audio-only ${newValue ? 'enabled' : 'disabled'}`);
+    // }
 
     // Set lastN to 0 in case audio-only is desired; leave it as undefined,
     // otherwise, and the default lastN value will be chosen automatically.

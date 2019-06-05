@@ -4,10 +4,6 @@ import { randomInt } from 'js-utils/random';
 import React, { Component } from 'react';
 import type { Dispatch } from 'redux';
 
-import {
-    createPageReloadScheduledEvent,
-    sendAnalytics
-} from '../../analytics';
 import { reloadNow } from '../../app';
 import {
     isFatalJitsiConferenceError,
@@ -182,11 +178,6 @@ export default class AbstractPageReloadOverlay<P: Props>
                 }));
             }
         }
-
-        sendAnalytics(createPageReloadScheduledEvent(
-            this.props.reason,
-            this.state.timeoutSeconds,
-            this.props.details));
 
         logger.info(
             `The conference will be reloaded after ${

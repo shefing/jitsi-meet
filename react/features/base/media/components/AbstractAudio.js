@@ -100,9 +100,8 @@ export default class AbstractAudio extends Component<Props> {
 
         // setRef
         const { setRef } = this.props;
-
         // $FlowFixMe
-        typeof setRef === 'function' && setRef(element ? this : null);
+         typeof setRef === 'function' && setRef(element ? this : null);
     }
 
     /**

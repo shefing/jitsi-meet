@@ -4,7 +4,6 @@ import {
     Transport
 } from '../../../modules/transport';
 
-import { createDeviceChangedEvent, sendAnalytics } from '../analytics';
 import {
     getDeviceLabelById,
     setAudioInputDevice,
@@ -138,8 +137,6 @@ export function submitDeviceSelectionTab(newState) {
         if (newState.selectedAudioOutputId
                 && newState.selectedAudioOutputId
                     !== currentState.selectedAudioOutputId) {
-            sendAnalytics(createDeviceChangedEvent('audio', 'output'));
-
             setAudioOutputDeviceId(
                 newState.selectedAudioOutputId,
                 dispatch,

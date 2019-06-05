@@ -4,7 +4,6 @@ import { generateRoomWithoutSeparator } from 'js-utils/random';
 import { Component } from 'react';
 import type { Dispatch } from 'redux';
 
-import { createWelcomePageEvent, sendAnalytics } from '../../analytics';
 import { appNavigate } from '../../app';
 import { isRoomValid } from '../../base/conference';
 
@@ -171,12 +170,6 @@ export class AbstractWelcomePage extends Component<Props, *> {
      */
     _onJoin() {
         const room = this.state.room || this.state.generatedRoomname;
-
-        sendAnalytics(
-            createWelcomePageEvent('clicked', 'joinButton', {
-                isGenerated: !this.state.room,
-                room
-            }));
 
         if (room) {
             this.setState({ joining: true });

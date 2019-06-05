@@ -1,11 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-
-import {
-    createRecordingDialogEvent,
-    sendAnalytics
-} from '../../../analytics';
 import {
     _abstractMapStateToProps
 } from '../../../base/dialog';
@@ -457,9 +452,6 @@ class StartRecordingDialogContent extends Component<Props> {
      * @returns {void}
      */
     _onSignIn() {
-        sendAnalytics(
-            createRecordingDialogEvent('start', 'signIn.button')
-        );
         this.props.dispatch(authorizeDropbox());
     }
 
@@ -471,9 +463,6 @@ class StartRecordingDialogContent extends Component<Props> {
      * @returns {void}
      */
     _onSignOut() {
-        sendAnalytics(
-            createRecordingDialogEvent('start', 'signOut.button')
-        );
         this.props.dispatch(updateDropboxToken());
     }
 }

@@ -2,10 +2,6 @@
 
 import { Component } from 'react';
 
-import {
-    createRemoteMuteConfirmedEvent,
-    sendAnalytics
-} from '../../analytics';
 import { muteRemoteParticipant } from '../../base/participants';
 
 /**
@@ -60,8 +56,6 @@ export default class AbstractMuteRemoteParticipantDialog
      */
     _onSubmit() {
         const { dispatch, participantID } = this.props;
-
-        sendAnalytics(createRemoteMuteConfirmedEvent(participantID));
 
         dispatch(muteRemoteParticipant(participantID));
 

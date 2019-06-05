@@ -2,10 +2,6 @@
 
 import { Component } from 'react';
 
-import {
-    createRemoteVideoMenuButtonEvent,
-    sendAnalytics
-} from '../../analytics';
 import { kickParticipant } from '../../base/participants';
 
 type Props = {
@@ -52,12 +48,6 @@ export default class AbstractKickRemoteParticipantDialog
      */
     _onSubmit() {
         const { dispatch, participantID } = this.props;
-
-        sendAnalytics(createRemoteVideoMenuButtonEvent(
-            'kick.button',
-            {
-                'participant_id': participantID
-            }));
 
         dispatch(kickParticipant(participantID));
 

@@ -1,13 +1,8 @@
 // @flow
 
 import * as JitsiMeetConferenceEvents from '../../ConferenceEvents';
-import {
-    createApiEvent,
-    sendAnalytics
-} from '../../react/features/analytics';
 import { setSubject } from '../../react/features/base/conference';
 import { parseJWTFromURLParams } from '../../react/features/base/jwt';
-import { invite } from '../../react/features/invite';
 import { toggleTileView } from '../../react/features/video-layout';
 import { getJitsiMeetTransport } from '../transport';
 
@@ -62,57 +57,44 @@ let videoAvailable = true;
 function initCommands() {
     commands = {
         'display-name': displayName => {
-            sendAnalytics(createApiEvent('display.name.changed'));
             APP.conference.changeLocalDisplayName(displayName);
         },
         'proxy-connection-event': event => {
             APP.conference.onProxyConnectionEvent(event);
         },
         'subject': subject => {
-            sendAnalytics(createApiEvent('subject.changed'));
             APP.store.dispatch(setSubject(subject));
         },
         'submit-feedback': feedback => {
-            sendAnalytics(createApiEvent('submit.feedback'));
             APP.conference.submitFeedback(feedback.score, feedback.message);
         },
         'toggle-audio': () => {
-            sendAnalytics(createApiEvent('toggle-audio'));
             logger.log('Audio toggle: API command received');
             APP.conference.toggleAudioMuted(false /* no UI */);
         },
         'toggle-video': () => {
-            sendAnalytics(createApiEvent('toggle-video'));
             logger.log('Video toggle: API command received');
             APP.conference.toggleVideoMuted(false /* no UI */);
         },
         'toggle-film-strip': () => {
-            sendAnalytics(createApiEvent('film.strip.toggled'));
             APP.UI.toggleFilmstrip();
         },
         'toggle-chat': () => {
-            sendAnalytics(createApiEvent('chat.toggled'));
             APP.UI.toggleChat();
         },
         'toggle-share-screen': () => {
-            sendAnalytics(createApiEvent('screen.sharing.toggled'));
             toggleScreenSharing();
         },
         'toggle-tile-view': () => {
-            sendAnalytics(createApiEvent('tile-view.toggled'));
-
             APP.store.dispatch(toggleTileView());
         },
         'video-hangup': () => {
-            sendAnalytics(createApiEvent('video.hangup'));
             APP.conference.hangup(true);
         },
         'email': email => {
-            sendAnalytics(createApiEvent('email.changed'));
             APP.conference.changeLocalEmail(email);
         },
         'avatar-url': avatarUrl => {
-            sendAnalytics(createApiEvent('avatar.url.changed'));
             APP.conference.changeLocalAvatarUrl(avatarUrl);
         }
     };
@@ -135,38 +117,6 @@ function initCommands() {
         const { name } = request;
 
         switch (name) {
-        case 'invite': {
-            const { invitees } = request;
-
-            if (!Array.isArray(invitees) || invitees.length === 0) {
-                callback({
-                    error: new Error('Unexpected format of invitees')
-                });
-
-                break;
-            }
-
-            // The store should be already available because API.init is called
-            // on appWillMount action.
-            APP.store.dispatch(
-                invite(invitees, true))
-                .then(failedInvitees => {
-                    let error;
-                    let result;
-
-                    if (failedInvitees.length) {
-                        error = new Error('One or more invites failed!');
-                    } else {
-                        result = true;
-                    }
-
-                    callback({
-                        error,
-                        result
-                    });
-                });
-            break;
-        }
         case 'is-audio-muted':
             callback(APP.conference.isLocalAudioMuted());
             break;

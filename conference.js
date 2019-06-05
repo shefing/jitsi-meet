@@ -15,13 +15,6 @@ import { createTaskQueue } from './modules/util/helpers';
 import * as JitsiMeetConferenceEvents from './ConferenceEvents';
 
 import {
-    createDeviceChangedEvent,
-    createScreenSharingEvent,
-    createStreamSwitchDelayEvent,
-    createTrackMutedEvent,
-    sendAnalytics
-} from './react/features/analytics';
-import {
     redirectWithStoredParams,
     reloadWithStoredParams
 } from './react/features/app';
@@ -733,8 +726,6 @@ export default {
                         || (track.isVideoTrack() && this.isLocalVideoMuted())) {
                         const mediaType = track.getType();
 
-                        sendAnalytics(
-                            createTrackMutedEvent(mediaType, 'initial mute'));
                         logger.log(`${mediaType} mute: initially muted.`);
                         track.mute();
                     }
@@ -1423,7 +1414,6 @@ export default {
             promise = createLocalTracksF({ devices: [ 'video' ] })
                 .then(([ stream ]) => this.useVideoStream(stream))
                 .then(() => {
-                    sendAnalytics(createScreenSharingEvent('stopped'));
                     logger.log('Screen sharing stopped, switching to video.');
 
                     if (!this.localVideo && wasVideoMuted) {
@@ -1609,7 +1599,6 @@ export default {
             .then(stream => this.useVideoStream(stream))
             .then(() => {
                 this.videoSwitchInProgress = false;
-                sendAnalytics(createScreenSharingEvent('started'));
                 logger.log('Screen sharing started');
             })
             .catch(error => {
@@ -2053,18 +2042,6 @@ export default {
             });
         });
 
-        /* eslint-disable max-params */
-        APP.UI.addListener(
-            UIEvents.RESOLUTION_CHANGED,
-            (id, oldResolution, newResolution, delay) => {
-                sendAnalytics(createStreamSwitchDelayEvent(
-                    {
-                        'old_resolution': oldResolution,
-                        'new_resolution': newResolution,
-                        value: delay
-                    }));
-            });
-
         APP.UI.addListener(UIEvents.AUTH_CLICKED, () => {
             AuthHandler.authenticate(room);
         });
@@ -2074,7 +2051,6 @@ export default {
             cameraDeviceId => {
                 const videoWasMuted = this.isLocalVideoMuted();
 
-                sendAnalytics(createDeviceChangedEvent('video', 'input'));
                 createLocalTracksF({
                     devices: [ 'video' ],
                     cameraDeviceId,
@@ -2113,7 +2089,6 @@ export default {
             micDeviceId => {
                 const audioWasMuted = this.isLocalAudioMuted();
 
-                sendAnalytics(createDeviceChangedEvent('audio', 'input'));
                 createLocalTracksF({
                     devices: [ 'audio' ],
                     cameraDeviceId: null,
@@ -2462,17 +2437,11 @@ export default {
                 .then(() => {
                     // Log and sync known mute state.
                     if (audioWasMuted) {
-                        sendAnalytics(createTrackMutedEvent(
-                            'audio',
-                            'device list changed'));
                         logger.log('Audio mute: device list changed');
                         muteLocalAudio(true);
                     }
 
                     if (!this.isSharingScreen && videoWasMuted) {
-                        sendAnalytics(createTrackMutedEvent(
-                            'video',
-                            'device list changed'));
                         logger.log('Video mute: device list changed');
                         muteLocalVideo(true);
                     }

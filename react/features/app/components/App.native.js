@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-import '../../analytics';
 import '../../authentication';
 import { setColorScheme } from '../../base/color-scheme';
 import '../../base/jwt';

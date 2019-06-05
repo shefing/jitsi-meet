@@ -2,10 +2,6 @@
 
 import { type Dispatch } from 'redux';
 
-import {
-    createToolbarEvent,
-    sendAnalytics
-} from '../../../analytics';
 import { translate } from '../../../base/i18n';
 import {
     getLocalParticipant,
@@ -76,7 +72,6 @@ class RaiseHandButton extends AbstractButton<Props, *> {
     _toggleRaisedHand() {
         const enable = !this.props._raisedHand;
 
-        sendAnalytics(createToolbarEvent('raise.hand', { enable }));
 
         this.props.dispatch(participantUpdated({
             // XXX Only the local participant is allowed to update without

@@ -22,7 +22,6 @@ import {
     TileView
 } from '../../../filmstrip';
 import { LargeVideo } from '../../../large-video';
-import { AddPeopleDialog, CalleeInfoContainer } from '../../../invite';
 import { setToolboxVisible } from '../../../toolbox';
 
 import {
@@ -209,7 +208,6 @@ class Conference extends AbstractConference<Props, *> {
                     translucent = { true } />
 
                 <Chat />
-                <AddPeopleDialog />
 
                 {/*
                   * The LargeVideo is the lowermost stacking layer.
@@ -217,12 +215,6 @@ class Conference extends AbstractConference<Props, *> {
                     _shouldDisplayTileView
                         ? <TileView onClick = { this._onClick } />
                         : <LargeVideo onClick = { this._onClick } />
-                }
-
-                {/*
-                  * If there is a ringing call, show the callee's info.
-                  */
-                    _reducedUI || <CalleeInfoContainer />
                 }
 
                 {/*

@@ -2,7 +2,6 @@
 
 import type { Dispatch } from 'redux';
 
-import { getShareInfoText } from '../invite';
 
 import {
     SET_GOOGLE_API_PROFILE,
