@@ -3,7 +3,6 @@
 import { CONNECTION_WILL_CONNECT, SET_LOCATION_URL } from '../connection';
 import { JitsiConferenceErrors } from '../lib-jitsi-meet';
 import { assign, ReducerRegistry, set } from '../redux';
-import { LOCKED_LOCALLY, LOCKED_REMOTELY } from '../../room-lock';
 
 import {
     AUTH_STATUS_CHANGED,
@@ -186,7 +185,7 @@ function _conferenceFailed(state, { conference, error }) {
          *
          * @type {string}
          */
-        locked: passwordRequired ? LOCKED_REMOTELY : undefined,
+        locked: undefined,
         password: undefined,
 
         /**
@@ -213,7 +212,7 @@ function _conferenceJoined(state, { conference }) {
     // i.e. password-protected is private to lib-jitsi-meet. However, the
     // library does not fire LOCK_STATE_CHANGED upon joining a JitsiConference
     // with a password.
-    const locked = conference.room.locked ? LOCKED_REMOTELY : undefined;
+    const locked = undefined;
 
     return assign(state, {
         authRequired: undefined,
@@ -326,7 +325,7 @@ function _lockStateChanged(state, { conference, locked }) {
     }
 
     return assign(state, {
-        locked: locked ? state.locked || LOCKED_REMOTELY : undefined,
+        locked: undefined,
         password: locked ? state.password : undefined
     });
 }
@@ -402,7 +401,7 @@ function _setPassword(state, { conference, method, password }) {
                 // 3. The redux action setPassword will perform the same check
                 // before it proceeds with the re-join.
                 joining: state.conference ? state.joining : conference,
-                locked: LOCKED_REMOTELY,
+                locked: undefined,
 
                 /**
                  * The password with which the conference is to be joined.
@@ -417,7 +416,7 @@ function _setPassword(state, { conference, method, password }) {
 
     case conference.lock:
         return assign(state, {
-            locked: password ? LOCKED_LOCALLY : undefined,
+            locked: undefined,
             password
         });
     }
