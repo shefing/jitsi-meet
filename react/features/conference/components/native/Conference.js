@@ -22,7 +22,7 @@ import {
     TileView
 } from '../../../filmstrip';
 import { LargeVideo } from '../../../large-video';
-import { AddPeopleDialog, CalleeInfoContainer } from '../../../invite';
+import { CalleeInfoContainer } from '../../../invite';
 import { setToolboxVisible } from '../../../toolbox';
 
 import {
@@ -209,7 +209,6 @@ class Conference extends AbstractConference<Props, *> {
                     translucent = { true } />
 
                 <Chat />
-                <AddPeopleDialog />
 
                 {/*
                   * The LargeVideo is the lowermost stacking layer.

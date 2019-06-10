@@ -57,12 +57,6 @@ ReducerRegistry.register('features/invite', (state = DEFAULT_STATE, action) => {
             summaryUrl: action.summaryUrl
         };
 
-    case SET_INVITE_DIALOG_VISIBLE:
-        return {
-            ...state,
-            inviteDialogVisible: action.visible
-        };
-
     case UPDATE_DIAL_IN_NUMBERS_FAILED:
         return {
             ...state,
