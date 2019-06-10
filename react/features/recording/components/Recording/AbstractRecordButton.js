@@ -1,5 +1,10 @@
 // @flow
 
+import {
+    createToolbarEvent,
+    sendAnalytics
+} from '../../../analytics';
+
 import { openDialog } from '../../../base/dialog';
 import { JitsiRecordingConstants } from '../../../base/lib-jitsi-meet';
 import {
@@ -55,6 +60,13 @@ export default class AbstractRecordButton<P: Props>
      */
     _handleClick() {
         const { _isRecordingRunning, dispatch } = this.props;
+
+        sendAnalytics(createToolbarEvent(
+            'recording.button',
+            {
+                'is_recording': _isRecordingRunning,
+                type: JitsiRecordingConstants.mode.FILE
+            }));
 
         dispatch(openDialog(
             _isRecordingRunning ? StopRecordingDialog : StartRecordingDialog

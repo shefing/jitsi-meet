@@ -1,5 +1,12 @@
 // @flow
 
+import {
+    ACTION_SHORTCUT_TRIGGERED,
+    AUDIO_MUTE,
+    createShortcutEvent,
+    createToolbarEvent,
+    sendAnalytics
+} from '../../analytics';
 import { translate } from '../../base/i18n';
 import { MEDIA_TYPE, setAudioMuted } from '../../base/media';
 import { connect } from '../../base/redux';
@@ -96,6 +103,12 @@ class AudioMuteButton extends AbstractAudioMuteButton<Props, *> {
      * @returns {void}
      */
     _onKeyboardShortcut() {
+        sendAnalytics(
+            createShortcutEvent(
+                AUDIO_MUTE,
+                ACTION_SHORTCUT_TRIGGERED,
+                { enable: !this._isAudioMuted() }));
+
         super._handleClick();
     }
 
@@ -107,6 +120,7 @@ class AudioMuteButton extends AbstractAudioMuteButton<Props, *> {
      * @returns {void}
      */
     _setAudioMuted(audioMuted: boolean) {
+        sendAnalytics(createToolbarEvent(AUDIO_MUTE, { enable: audioMuted }));
         this.props.dispatch(setAudioMuted(audioMuted, /* ensureTrack */ true));
 
         // FIXME: The old conference logic as well as the shared video feature

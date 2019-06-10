@@ -1,5 +1,6 @@
 // @flow
 
+import { createToolbarEvent, sendAnalytics } from '../../analytics';
 import { AbstractButton, type AbstractButtonProps } from '../../base/toolbox';
 
 import { toggleRequestingSubtitles } from '../actions';
@@ -36,6 +37,11 @@ export class AbstractClosedCaptionButton
      */
     _handleClick() {
         const { _requestingSubtitles, dispatch } = this.props;
+
+        sendAnalytics(createToolbarEvent('transcribing.ccButton',
+            {
+                'requesting_subtitles': Boolean(_requestingSubtitles)
+            }));
 
         dispatch(toggleRequestingSubtitles());
     }

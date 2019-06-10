@@ -2,6 +2,10 @@
 
 import { Component } from 'react';
 
+import {
+    createRecordingDialogEvent,
+    sendAnalytics
+} from '../../../analytics';
 import { JitsiRecordingConstants } from '../../../base/lib-jitsi-meet';
 
 import { getActiveSession } from '../../functions';
@@ -57,6 +61,7 @@ export default class AbstractStopRecordingDialog<P: Props>
      * @returns {boolean} - True (to note that the modal should be closed).
      */
     _onSubmit() {
+        sendAnalytics(createRecordingDialogEvent('stop', 'confirm.button'));
 
         const { _fileRecordingSession } = this.props;
 

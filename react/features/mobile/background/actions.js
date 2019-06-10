@@ -2,6 +2,10 @@
 
 import type { Dispatch } from 'redux';
 
+import {
+    createTrackMutedEvent,
+    sendAnalytics
+} from '../../analytics';
 import { setLastN } from '../../base/conference';
 import { setVideoMuted, VIDEO_MUTISM_AUTHORITY } from '../../base/media';
 
@@ -43,6 +47,10 @@ export function _setBackgroundVideoMuted(muted: boolean) {
         const { audioOnly } = getState()['features/base/conference'];
 
         audioOnly || dispatch(setLastN(muted ? 0 : undefined));
+
+        sendAnalytics(createTrackMutedEvent(
+            'video',
+            'callkit.background.video'));
 
         dispatch(setVideoMuted(muted, VIDEO_MUTISM_AUTHORITY.BACKGROUND));
     };

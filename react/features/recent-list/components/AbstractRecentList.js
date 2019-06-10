@@ -3,6 +3,11 @@
 import React from 'react';
 import type { Dispatch } from 'redux';
 
+import {
+    createRecentClickedEvent,
+    createRecentSelectedEvent,
+    sendAnalytics
+} from '../../analytics';
 import { appNavigate } from '../../app';
 import {
     AbstractPage,
@@ -44,6 +49,17 @@ export default class AbstractRecentList<P: Props> extends AbstractPage<P> {
         this._onPress = this._onPress.bind(this);
     }
 
+    /**
+     * Implements React's {@link Component#componentDidMount()}. Invoked
+     * immediately after this component is mounted.
+     *
+     * @inheritdoc
+     * @returns {void}
+     */
+    componentDidMount() {
+        sendAnalytics(createRecentSelectedEvent());
+    }
+
     _getRenderListEmptyComponent: () => React$Node;
 
     /**
@@ -80,6 +96,9 @@ export default class AbstractRecentList<P: Props> extends AbstractPage<P> {
      */
     _onPress(url) {
         const { dispatch } = this.props;
+
+        sendAnalytics(createRecentClickedEvent('recent.meeting.tile'));
+
         dispatch(appNavigate(url));
     }
 }

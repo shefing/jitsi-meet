@@ -54,7 +54,6 @@ export default class Audio extends AbstractAudio {
      * @returns {void}
      */
     componentWillUnmount() {
-        console.error("unmount");
         if (this._sound) {
             this._sound.release();
             this._sound = null;

@@ -1,5 +1,11 @@
 // @flow
 
+import {
+    createStartAudioOnlyEvent,
+    createStartMutedConfigurationEvent,
+    createSyncTrackStateEvent,
+    sendAnalytics
+} from '../../analytics';
 import { isRoomValid, SET_ROOM, setAudioOnly } from '../conference';
 import JitsiMeetJS from '../lib-jitsi-meet';
 import { MiddlewareRegistry } from '../redux';
@@ -94,6 +100,8 @@ function _setRoom({ dispatch, getState }, next, action) {
                 getPropertyValue(state, 'startWithVideoMuted', mutedSources))
             : _VIDEO_INITIAL_MEDIA_STATE.muted;
 
+    sendAnalytics(
+        createStartMutedConfigurationEvent('local', audioMuted, videoMuted));
     logger.log(
         `Start muted: ${audioMuted ? 'audio, ' : ''}${
             videoMuted ? 'video' : ''}`);
@@ -151,6 +159,7 @@ function _setRoom({ dispatch, getState }, next, action) {
         audioOnly = true;
     }
 
+    sendAnalytics(createStartAudioOnlyEvent(audioOnly));
     logger.log(`Start audio only set to ${audioOnly.toString()}`);
 
     dispatch(setAudioOnly(audioOnly, false));
@@ -176,6 +185,7 @@ function _syncTrackMutedState({ getState }, track) {
     // not yet in redux state and JitsiTrackEvents.TRACK_MUTE_CHANGED may be
     // fired before track gets to state.
     if (track.muted !== muted) {
+        sendAnalytics(createSyncTrackStateEvent(track.mediaType, muted));
         logger.log(
             `Sync ${track.mediaType} track muted state to ${
                 muted ? 'muted' : 'unmuted'}`);

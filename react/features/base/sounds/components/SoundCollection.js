@@ -53,7 +53,7 @@ class SoundCollection extends Component<Props> {
         let key = 0;
         const sounds = [];
 
-        for (const [soundId, sound] of this.props._sounds.entries()) {
+        for (const [ soundId, sound ] of this.props._sounds.entries()) {
             const { options, src } = sound;
 
             sounds.push(

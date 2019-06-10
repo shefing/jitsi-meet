@@ -117,7 +117,10 @@
         "microphonePermission": "Error obtaining microphone permission"
     },
     "deviceSelection": {
+        "deviceSettings": "Device settings",
+        "noPermission": "Permission not granted",
         "previewUnavailable": "Preview unavailable",
+        "selectADevice": "Select a device",
         "testAudio": "Play a test sound"
     },
     "dialog": {

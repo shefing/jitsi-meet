@@ -2,6 +2,10 @@
 
 import type { Dispatch } from 'redux';
 
+import {
+    createToolbarEvent,
+    sendAnalytics
+} from '../../analytics';
 import { translate } from '../../base/i18n';
 import { connect } from '../../base/redux';
 import {
@@ -49,6 +53,12 @@ class TileViewButton<P: Props> extends AbstractButton<P, *> {
      */
     _handleClick() {
         const { _tileViewEnabled, dispatch } = this.props;
+
+        sendAnalytics(createToolbarEvent(
+            'tileview.button',
+            {
+                'is_enabled': _tileViewEnabled
+            }));
 
         dispatch(setTileView(!_tileViewEnabled));
     }

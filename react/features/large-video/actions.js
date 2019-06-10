@@ -2,6 +2,10 @@
 
 import type { Dispatch } from 'redux';
 
+import {
+    createSelectParticipantFailedEvent,
+    sendAnalytics
+} from '../analytics';
 import { _handleParticipantError } from '../base/conference';
 import { MEDIA_TYPE } from '../base/media';
 import { getParticipants } from '../base/participants';
@@ -35,6 +39,7 @@ export function selectParticipant() {
             } catch (err) {
                 _handleParticipantError(err);
 
+                sendAnalytics(createSelectParticipantFailedEvent(err));
 
                 reportError(
                     err, `Failed to select participants ${ids.toString()}`);

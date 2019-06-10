@@ -1,6 +1,12 @@
 /* global APP, $, interfaceConfig */
 
 import { toggleDialog } from '../../react/features/base/dialog';
+import {
+    ACTION_SHORTCUT_PRESSED as PRESSED,
+    ACTION_SHORTCUT_RELEASED as RELEASED,
+    createShortcutEvent,
+    sendAnalytics
+} from '../../react/features/analytics';
 import { KeyboardShortcutsDialog }
     from '../../react/features/keyboard-shortcuts';
 import { SpeakerStats } from '../../react/features/speaker-stats';
@@ -61,6 +67,9 @@ const KeyboardShortcut = {
                 || $(':focus').is('textarea'))) {
                 if (this._getKeyboardKey(e).toUpperCase() === ' ') {
                     if (APP.conference.isLocalAudioMuted()) {
+                        sendAnalytics(createShortcutEvent(
+                            'push.to.talk',
+                            PRESSED));
                         logger.log('Talk shortcut pressed');
                         APP.conference.muteAudio(false);
                     }
@@ -179,12 +188,14 @@ const KeyboardShortcut = {
      */
     _initGlobalShortcuts() {
         this.registerShortcut('?', null, () => {
+            sendAnalytics(createShortcutEvent('help'));
             this.openDialog();
         }, 'keyboardShortcuts.toggleShortcuts');
 
         // register SPACE shortcut in two steps to insure visibility of help
         // message
         this.registerShortcut(' ', null, () => {
+            sendAnalytics(createShortcutEvent('push.to.talk', RELEASED));
             logger.log('Talk shortcut released');
             APP.conference.muteAudio(true);
         });
@@ -192,6 +203,7 @@ const KeyboardShortcut = {
 
         if (!interfaceConfig.filmStripOnly) {
             this.registerShortcut('T', null, () => {
+                sendAnalytics(createShortcutEvent('speaker.stats'));
                 APP.store.dispatch(toggleDialog(SpeakerStats, {
                     conference: APP.conference
                 }));

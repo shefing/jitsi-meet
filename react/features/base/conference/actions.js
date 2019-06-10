@@ -1,5 +1,9 @@
 // @flow
 
+import {
+    createStartMutedConfigurationEvent,
+    sendAnalytics
+} from '../../analytics';
 import { getName } from '../../app';
 import { endpointMessageReceived } from '../../subtitles';
 
@@ -97,6 +101,8 @@ function _addConferenceListeners(conference, dispatch) {
             const audioMuted = Boolean(conference.startAudioMuted);
             const videoMuted = Boolean(conference.startVideoMuted);
 
+            sendAnalytics(createStartMutedConfigurationEvent(
+                'remote', audioMuted, videoMuted));
             logger.log(`Start muted: ${audioMuted ? 'audio, ' : ''}${
                 videoMuted ? 'video' : ''}`);
 

@@ -396,8 +396,9 @@ UI.updateUserRole = user => {
  */
 UI.updateUserStatus = (user, status) => {
     const reduxState = APP.store.getState() || {};
+    const { calleeInfoVisible } = reduxState['features/invite'] || {};
 
-    if (!status) {
+    if (!status || calleeInfoVisible) {
         return;
     }
 

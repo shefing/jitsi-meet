@@ -1,7 +1,7 @@
 import BackgroundTimer from 'react-native-background-timer';
 import '@webcomponents/url'; // Polyfill for URL constructor
 
-import { Platform } from 'react-native';
+import { Platform } from '../../react';
 
 // XXX The library lib-jitsi-meet utilizes window.localStorage at the time of
 // this writing and, consequently, the browser-related polyfills implemented

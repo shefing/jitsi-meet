@@ -1,6 +1,10 @@
 /* @flow */
 
 
+import {
+    createRecordingEvent,
+    sendAnalytics
+} from '../analytics';
 import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../base/app';
 import { CONFERENCE_WILL_JOIN, getCurrentConference } from '../base/conference';
 import JitsiMeetJS, {
@@ -124,6 +128,7 @@ MiddlewareRegistry.register(({ dispatch, getState }) => next => action => {
                 && (!oldSessionData || oldSessionData.status !== ON)
                 && updatedSessionData.mode
                     === JitsiRecordingConstants.mode.FILE) {
+                sendAnalytics(createRecordingEvent('start', 'file'));
                 dispatch(playSound(RECORDING_ON_SOUND_ID));
             } else if (updatedSessionData.status === OFF
                 && (!oldSessionData || oldSessionData.status !== OFF)) {
@@ -140,6 +145,8 @@ MiddlewareRegistry.register(({ dispatch, getState }) => next => action => {
                         duration
                             = (Date.now() / 1000) - oldSessionData.timestamp;
                     }
+                    sendAnalytics(
+                        createRecordingEvent('stop', 'file', duration));
                     dispatch(stopSound(RECORDING_ON_SOUND_ID));
                     dispatch(playSound(RECORDING_OFF_SOUND_ID));
                 }

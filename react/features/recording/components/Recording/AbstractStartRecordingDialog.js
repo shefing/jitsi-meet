@@ -2,6 +2,10 @@
 
 import { Component } from 'react';
 
+import {
+    createRecordingDialogEvent,
+    sendAnalytics
+} from '../../../analytics';
 import { JitsiRecordingConstants } from '../../../base/lib-jitsi-meet';
 import {
     getDropboxData,
@@ -262,6 +266,10 @@ class AbstractStartRecordingDialog extends Component<Props, State> {
             });
             attributes.type = RECORDING_TYPES.JITSI_REC_SERVICE;
         }
+
+        sendAnalytics(
+            createRecordingDialogEvent('start', 'confirm.button', attributes)
+        );
 
         _conference.startRecording({
             mode: JitsiRecordingConstants.mode.FILE,

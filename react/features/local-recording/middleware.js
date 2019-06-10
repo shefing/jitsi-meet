@@ -1,5 +1,6 @@
 /* @flow */
 
+import { createShortcutEvent, sendAnalytics } from '../analytics';
 import { APP_WILL_UNMOUNT } from '../base/app';
 import { CONFERENCE_JOINED } from '../base/conference';
 import { toggleDialog } from '../base/dialog';
@@ -59,6 +60,7 @@ MiddlewareRegistry.register(({ getState, dispatch }) => next => action => {
 
         typeof APP === 'object' && typeof APP.keyboardshortcut === 'object'
             && APP.keyboardshortcut.registerShortcut('L', null, () => {
+                sendAnalytics(createShortcutEvent('local.recording'));
                 dispatch(toggleDialog(LocalRecordingInfoDialog));
             }, 'keyboardShortcuts.localRecording');
 

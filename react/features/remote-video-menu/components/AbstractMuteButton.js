@@ -1,5 +1,9 @@
 // @flow
 
+import {
+    createRemoteVideoMenuButtonEvent,
+    sendAnalytics
+} from '../../analytics';
 import { openDialog } from '../../base/dialog';
 import { MEDIA_TYPE } from '../../base/media';
 import {
@@ -52,6 +56,12 @@ export default class AbstractMuteButton extends AbstractButton<Props, *> {
      */
     _handleClick() {
         const { dispatch, participantID } = this.props;
+
+        sendAnalytics(createRemoteVideoMenuButtonEvent(
+            'mute.button',
+            {
+                'participant_id': participantID
+            }));
 
         dispatch(openDialog(MuteRemoteParticipantDialog, { participantID }));
     }

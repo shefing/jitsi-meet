@@ -3,6 +3,7 @@
 import { Alert } from 'react-native';
 import uuid from 'uuid';
 
+import { createTrackMutedEvent, sendAnalytics } from '../../analytics';
 import { appNavigate } from '../../app';
 import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../../base/app';
 import {
@@ -304,6 +305,8 @@ function _onPerformSetMutedCallAction({ callUUID, muted }) {
 
     if (conference && conference.callUUID === callUUID) {
         muted = Boolean(muted); // eslint-disable-line no-param-reassign
+        sendAnalytics(
+            createTrackMutedEvent('audio', 'call-integration', muted));
         dispatch(setAudioMuted(muted, /* ensureTrack */ true));
     }
 }

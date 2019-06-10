@@ -2,10 +2,14 @@
 
 import { Component } from 'react';
 
+import { createInviteDialogEvent, sendAnalytics } from '../../../analytics';
 
 import { invite } from '../../actions';
 import {
+    getInviteResultsForQuery,
     getInviteTypeCounts,
+    isAddPeopleEnabled,
+    isDialOutEnabled
 } from '../../functions';
 
 const logger = require('jitsi-meet-logger').getLogger(__filename);
@@ -97,6 +101,12 @@ export default class AbstractAddPeopleDialog<P: Props, S: State>
     _invite(invitees) {
         const inviteTypeCounts = getInviteTypeCounts(invitees);
 
+        sendAnalytics(createInviteDialogEvent(
+            'clicked', 'inviteButton', {
+                ...inviteTypeCounts,
+                inviteAllowed: this._isAddDisabled()
+            }));
+
         if (this._isAddDisabled()) {
             return Promise.resolve([]);
         }
@@ -122,6 +132,10 @@ export default class AbstractAddPeopleDialog<P: Props, S: State>
                     logger.error(`${invitesLeftToSend.length} invites failed`,
                         erroredInviteTypeCounts);
 
+                    sendAnalytics(createInviteDialogEvent(
+                        'error', 'invite', {
+                            ...erroredInviteTypeCounts
+                        }));
 
                     this.setState({
                         addToCallError: true
