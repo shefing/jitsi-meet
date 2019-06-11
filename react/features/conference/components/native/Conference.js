@@ -13,7 +13,6 @@ import {
     makeAspectRatioAware
 } from '../../../base/responsive-ui';
 import { TestConnectionInfo } from '../../../base/testing';
-import { Chat } from '../../../chat';
 import { DisplayNameLabel } from '../../../display-name';
 import {
     FILMSTRIP_SIZE,
@@ -152,9 +151,6 @@ class Conference extends AbstractConference<Props, *> {
                     barStyle = 'light-content'
                     hidden = { true }
                     translucent = { true } />
-
-                <Chat />
-
                 {/*
                   * The LargeVideo is the lowermost stacking layer.
                   */
