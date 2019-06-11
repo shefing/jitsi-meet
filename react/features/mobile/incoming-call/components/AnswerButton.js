@@ -1,27 +1,18 @@
 // @flow
+import { Button } from 'react-native'
+
 
 import { translate } from '../../../base/i18n';
 import { connect } from '../../../base/redux';
-import { AbstractButton } from '../../../base/toolbox';
-import type { AbstractButtonProps } from '../../../base/toolbox';
 
 import { incomingCallAnswered } from '../actions';
 
-/**
- * The type of the React {@code Component} props of {@link AnswerButton}.
- */
-type Props = AbstractButtonProps & {
 
-    /**
-     * The redux {@code dispatch} function.
-     */
-    dispatch: Function
-};
 
 /**
  * An implementation of a button which accepts/answers an incoming call.
  */
-class AnswerButton extends AbstractButton<Props, *> {
+class AnswerButton extends Button<Props, *> {
     accessibilityLabel = 'incomingCall.answer';
     iconName = 'hangup';
     label = 'incomingCall.answer';

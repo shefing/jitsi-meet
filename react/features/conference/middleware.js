@@ -16,7 +16,6 @@ import { SET_REDUCED_UI } from '../base/responsive-ui';
 import { MiddlewareRegistry, StateListenerRegistry } from '../base/redux';
 import { FeedbackDialog } from '../feedback';
 import { setFilmstripEnabled } from '../filmstrip';
-import { setToolboxEnabled } from '../toolbox';
 
 MiddlewareRegistry.register(store => next => action => {
     const result = next(action);
@@ -28,7 +27,6 @@ MiddlewareRegistry.register(store => next => action => {
         const state = getState();
         const { reducedUI } = state['features/base/responsive-ui'];
 
-        dispatch(setToolboxEnabled(!reducedUI));
         dispatch(setFilmstripEnabled(!reducedUI));
 
         dispatch(

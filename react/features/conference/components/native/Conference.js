@@ -23,7 +23,6 @@ import {
 } from '../../../filmstrip';
 import { LargeVideo } from '../../../large-video';
 import { CalleeInfoContainer } from '../../../invite';
-import { setToolboxVisible } from '../../../toolbox';
 
 import {
     AbstractConference,
@@ -84,30 +83,6 @@ type Props = AbstractProps & {
      */
     _reducedUI: boolean,
 
-    /**
-     * The handler which dispatches the (redux) action {@link setToolboxVisible}
-     * to show/hide the {@link Toolbox}.
-     *
-     * @param {boolean} visible - {@code true} to show the {@code Toolbox} or
-     * {@code false} to hide it.
-     * @private
-     * @returns {void}
-     */
-    _setToolboxVisible: Function,
-
-    /**
-     * The indicator which determines whether the Toolbox is visible.
-     *
-     * @private
-     */
-    _toolboxVisible: boolean,
-
-    /**
-     * The indicator which determines whether the Toolbox is always visible.
-     *
-     * @private
-     */
-    _toolboxAlwaysVisible: boolean,
 
     /**
      * The redux {@code dispatch} function.
@@ -131,7 +106,6 @@ class Conference extends AbstractConference<Props, *> {
         // Bind event handlers so they are only bound once per instance.
         this._onClick = this._onClick.bind(this);
         this._onHardwareBackPress = this._onHardwareBackPress.bind(this);
-        this._setToolboxVisible = this._setToolboxVisible.bind(this);
     }
 
     /**
@@ -143,35 +117,6 @@ class Conference extends AbstractConference<Props, *> {
      */
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this._onHardwareBackPress);
-
-        // Show the toolbox if we are the only participant; otherwise, the whole
-        // UI looks too unpopulated the LargeVideo visible.
-        this.props._participantCount === 1 && this._setToolboxVisible(true);
-    }
-
-    /**
-     * Implements React's {@link Component#componentDidUpdate()}.
-     *
-     * @inheritdoc
-     */
-    componentDidUpdate(prevProps: Props) {
-        const {
-            _participantCount: oldParticipantCount
-        } = prevProps;
-        const {
-            _participantCount: newParticipantCount,
-            _toolboxVisible
-        } = this.props;
-
-        if (oldParticipantCount === 1
-                && newParticipantCount > 1
-                && _toolboxVisible) {
-            this._setToolboxVisible(false);
-        } else if (oldParticipantCount > 1
-                && newParticipantCount === 1
-                && !_toolboxVisible) {
-            this._setToolboxVisible(true);
-        }
     }
 
     /**
@@ -279,11 +224,7 @@ class Conference extends AbstractConference<Props, *> {
      * @returns {void}
      */
     _onClick() {
-        if (this.props._toolboxAlwaysVisible) {
-            return;
-        }
 
-        this._setToolboxVisible(!this.props._toolboxVisible);
     }
 
     _onHardwareBackPress: () => boolean;
@@ -348,20 +289,6 @@ class Conference extends AbstractConference<Props, *> {
             }
         );
     }
-
-    _setToolboxVisible: (boolean) => void;
-
-    /**
-     * Dispatches an action changing the visibility of the {@link Toolbox}.
-     *
-     * @private
-     * @param {boolean} visible - Pass {@code true} to show the
-     * {@code Toolbox} or {@code false} to hide it.
-     * @returns {void}
-     */
-    _setToolboxVisible(visible) {
-        this.props.dispatch(setToolboxVisible(visible));
-    }
 }
 
 /**
@@ -379,7 +306,6 @@ function _mapStateToProps(state) {
         leaving
     } = state['features/base/conference'];
     const { reducedUI } = state['features/base/responsive-ui'];
-    const { alwaysVisible, visible } = state['features/toolbox'];
 
     // XXX There is a window of time between the successful establishment of the
     // XMPP connection and the subsequent commencement of joining the MUC during
@@ -442,21 +368,6 @@ function _mapStateToProps(state) {
          */
         _reducedUI: reducedUI,
 
-        /**
-         * The indicator which determines whether the Toolbox is visible.
-         *
-         * @private
-         * @type {boolean}
-         */
-        _toolboxVisible: visible,
-
-        /**
-         * The indicator which determines whether the Toolbox is always visible.
-         *
-         * @private
-         * @type {boolean}
-         */
-        _toolboxAlwaysVisible: alwaysVisible
     };
 }
 

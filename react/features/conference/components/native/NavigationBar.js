@@ -8,7 +8,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import { getConferenceName } from '../../../base/conference';
 import { connect } from '../../../base/redux';
 import { PictureInPictureButton } from '../../../mobile/picture-in-picture';
-import { isToolboxVisible } from '../../../toolbox';
 
 import styles, { NAVBAR_GRADIENT_COLORS } from './styles';
 
@@ -83,7 +82,7 @@ class NavigationBar extends Component<Props> {
 function _mapStateToProps(state) {
     return {
         _meetingName: _.startCase(getConferenceName(state)),
-        _visible: isToolboxVisible(state)
+        _visible: false
     };
 }
 

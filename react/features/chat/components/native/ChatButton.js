@@ -2,16 +2,13 @@
 
 import { getLocalParticipant } from '../../../base/participants';
 import { connect } from '../../../base/redux';
-import {
-    AbstractButton,
-    type AbstractButtonProps
-} from '../../../base/toolbox';
 import { openDisplayNamePrompt } from '../../../display-name';
+import { Button } from 'react-native'
 
 import { toggleChat } from '../../actions';
 import { getUnreadCount } from '../../functions';
 
-type Props = AbstractButtonProps & {
+type Props = {
 
     /**
      * Function to display chat.
@@ -37,10 +34,7 @@ type Props = AbstractButtonProps & {
     _unreadMessageCount: number
 };
 
-/**
- * Implements an {@link AbstractButton} to open the chat screen on mobile.
- */
-class ChatButton extends AbstractButton<Props, *> {
+class ChatButton extends Button<Props, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.chat';
     iconName = 'chat';
     label = 'toolbar.chat';

@@ -1,11 +1,13 @@
 // @flow
 
+import { Button } from 'react-native'
+
+
 import { createToolbarEvent, sendAnalytics } from '../../analytics';
-import { AbstractButton, type AbstractButtonProps } from '../../base/toolbox';
 
 import { toggleRequestingSubtitles } from '../actions';
 
-export type AbstractProps = AbstractButtonProps & {
+export type AbstractProps = {
 
     /**
      * Invoked to obtain translated strings.
@@ -27,7 +29,7 @@ export type AbstractProps = AbstractButtonProps & {
  * The button component which starts/stops the transcription.
  */
 export class AbstractClosedCaptionButton
-    extends AbstractButton<AbstractProps, *> {
+    extends Button<AbstractProps, *> {
     /**
      * Handles clicking / pressing the button.
      *

@@ -19,11 +19,6 @@ import {
     participantLeft,
     pinParticipant
 } from '../../../react/features/base/participants';
-import {
-    dockToolbox,
-    getToolboxHeight,
-    showToolbox
-} from '../../../react/features/toolbox';
 
 export const SHARED_VIDEO_CONTAINER_TYPE = 'sharedvideo';
 
@@ -616,7 +611,6 @@ class SharedVideoContainer extends LargeContainer {
                 self.bodyBackground = document.body.style.background;
                 document.body.style.background = 'black';
                 this.$iframe.css({ opacity: 1 });
-                APP.store.dispatch(dockToolbox(true));
                 resolve();
             });
         });
@@ -628,7 +622,6 @@ class SharedVideoContainer extends LargeContainer {
     hide() {
         const self = this;
 
-        APP.store.dispatch(dockToolbox(false));
 
         return new Promise(resolve => {
             this.$iframe.fadeOut(300, () => {
@@ -643,7 +636,6 @@ class SharedVideoContainer extends LargeContainer {
      *
      */
     onHoverIn() {
-        APP.store.dispatch(showToolbox());
     }
 
     /**
@@ -660,7 +652,7 @@ class SharedVideoContainer extends LargeContainer {
         let height, width;
 
         if (interfaceConfig.VERTICAL_FILMSTRIP) {
-            height = containerHeight - getToolboxHeight();
+            height = containerHeight;
             width = containerWidth - Filmstrip.getFilmstripWidth();
         } else {
             height = containerHeight - Filmstrip.getFilmstripHeight();

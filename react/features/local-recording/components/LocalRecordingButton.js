@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 
 import { translate } from '../../base/i18n';
-import { ToolbarButton } from '../../toolbox';
 
 /**
  * The type of the React {@code Component} state of
@@ -61,13 +60,8 @@ class LocalRecordingButton extends Component<Props> {
                 ? 'icon-rec toggled' : 'icon-rec'}`;
 
         return (
-            <ToolbarButton
-                accessibilityLabel
-                    = { t('toolbar.accessibilityLabel.localRecording') }
-                iconName = { iconClasses }
-                onClick = { this._onClick }
-                tooltip = { t('localRecording.dialogTitle') } />
-        );
+            null
+            );
     }
 
     _onClick: () => void;

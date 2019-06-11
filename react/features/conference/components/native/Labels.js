@@ -12,7 +12,6 @@ import {
 import {
     RecordingExpandedLabel
 } from '../../../recording';
-import { isToolboxVisible } from '../../../toolbox';
 import { TranscribingExpandedLabel } from '../../../transcribing';
 import { shouldDisplayTileView } from '../../../video-layout';
 import { VideoQualityExpandedLabel } from '../../../video-quality';
@@ -364,8 +363,7 @@ function _mapStateToProps(state) {
     return {
         ..._abstractMapStateToProps(state),
         _reducedUI: state['features/base/responsive-ui'].reducedUI,
-        _visible: !isToolboxVisible(state)
-            && !shouldDisplayTileView(state)
+        _visible: !shouldDisplayTileView(state)
             && !shouldDisplayNotifications(state)
     };
 }

@@ -112,7 +112,6 @@ import {
     suspendDetected
 } from './react/features/overlay';
 import { setSharedVideoStatus } from './react/features/shared-video';
-import { isButtonEnabled } from './react/features/toolbox';
 import { endpointMessageReceived } from './react/features/subtitles';
 
 const logger = require('jitsi-meet-logger').getLogger(__filename);
@@ -431,7 +430,7 @@ class ConferenceConnector {
         switch (err) {
         case JitsiConferenceErrors.CHAT_ERROR:
             logger.error('Chat error.', err);
-            if (isButtonEnabled('chat') && !interfaceConfig.filmStripOnly) {
+            if (!interfaceConfig.filmStripOnly) {
                 const [ code, msg ] = params;
 
                 APP.store.dispatch(addMessage({

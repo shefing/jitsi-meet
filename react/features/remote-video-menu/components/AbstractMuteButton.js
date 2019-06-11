@@ -1,20 +1,19 @@
 // @flow
 
+import { Button } from 'react-native'
+
+
 import {
     createRemoteVideoMenuButtonEvent,
     sendAnalytics
 } from '../../analytics';
 import { openDialog } from '../../base/dialog';
 import { MEDIA_TYPE } from '../../base/media';
-import {
-    AbstractButton,
-    type AbstractButtonProps
-} from '../../base/toolbox';
 import { isRemoteTrackMuted } from '../../base/tracks';
 
 import { MuteRemoteParticipantDialog } from '.';
 
-export type Props = AbstractButtonProps & {
+export type Props = {
 
     /**
      * Boolean to indicate if the audio track of the participant is muted or
@@ -42,7 +41,7 @@ export type Props = AbstractButtonProps & {
 /**
  * An abstract remote video menu button which mutes the remote participant.
  */
-export default class AbstractMuteButton extends AbstractButton<Props, *> {
+export default class AbstractMuteButton extends Button<Props, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.remoteMute';
     iconName = 'icon-mic-disabled';
     label = 'videothumbnail.domute';

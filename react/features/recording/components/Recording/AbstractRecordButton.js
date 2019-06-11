@@ -1,4 +1,5 @@
 // @flow
+import { Button } from 'react-native'
 
 import {
     createToolbarEvent,
@@ -11,10 +12,6 @@ import {
     getLocalParticipant,
     isLocalParticipantModerator
 } from '../../../base/participants';
-import {
-    AbstractButton,
-    type AbstractButtonProps
-} from '../../../base/toolbox';
 
 import { getActiveSession } from '../../functions';
 
@@ -24,7 +21,7 @@ import { StartRecordingDialog, StopRecordingDialog } from './_';
  * The type of the React {@code Component} props of
  * {@link AbstractRecordButton}.
  */
-export type Props = AbstractButtonProps & {
+export type Props = {
 
     /**
      * True if there is a running active recording, false otherwise.
@@ -46,7 +43,7 @@ export type Props = AbstractButtonProps & {
  * An abstract implementation of a button for starting and stopping recording.
  */
 export default class AbstractRecordButton<P: Props>
-    extends AbstractButton<P, *> {
+    extends Button<P, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.recording';
     label = 'dialog.startRecording';
     toggledLabel = 'dialog.stopRecording';

@@ -1,6 +1,7 @@
 // @flow
 
 import type { Dispatch } from 'redux';
+import { Button } from 'react-native'
 
 import {
     createToolbarEvent,
@@ -8,17 +9,13 @@ import {
 } from '../../analytics';
 import { translate } from '../../base/i18n';
 import { connect } from '../../base/redux';
-import {
-    AbstractButton,
-    type AbstractButtonProps
-} from '../../base/toolbox';
 
 import { setTileView } from '../actions';
 
 /**
  * The type of the React {@code Component} props of {@link TileViewButton}.
  */
-type Props = AbstractButtonProps & {
+type Props = {
 
     /**
      * Whether or not tile view layout has been enabled as the user preference.
@@ -31,12 +28,7 @@ type Props = AbstractButtonProps & {
     dispatch: Dispatch<any>
 };
 
-/**
- * Component that renders a toolbar button for toggling the tile layout view.
- *
- * @extends AbstractButton
- */
-class TileViewButton<P: Props> extends AbstractButton<P, *> {
+class TileViewButton<P: Props> extends Button<P, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.tileView';
     iconName = 'icon-tiles-many';
     label = 'toolbar.enterTileView';

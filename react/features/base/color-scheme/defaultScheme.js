@@ -37,12 +37,5 @@ export default {
         activeParticipantHighlight: ColorPalette.blue,
         activeParticipantTint: ColorPalette.black,
         background: ColorPalette.black
-    },
-    'Toolbox': {
-        button: getRGBAFormat(ColorPalette.white, 0.7),
-        buttonToggled: getRGBAFormat(ColorPalette.buttonUnderlay, 0.7),
-        buttonToggledBorder:
-            getRGBAFormat(ColorPalette.buttonUnderlay, 0.7),
-        hangup: ColorPalette.red
     }
 };

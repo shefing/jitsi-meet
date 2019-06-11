@@ -1,12 +1,10 @@
 // @flow
 
+import { Button } from 'react-native'
+
 import { openDialog } from '../../../base/dialog';
 import { JitsiRecordingConstants } from '../../../base/lib-jitsi-meet';
 import { getLocalParticipant } from '../../../base/participants';
-import {
-    AbstractButton,
-    type AbstractButtonProps
-} from '../../../base/toolbox';
 
 import { getActiveSession } from '../../functions';
 
@@ -19,7 +17,7 @@ import {
  * The type of the React {@code Component} props of
  * {@link AbstractLiveStreamButton}.
  */
-export type Props = AbstractButtonProps & {
+export type Props = {
 
     /**
      * True if there is a running active live stream, false otherwise.
@@ -41,7 +39,7 @@ export type Props = AbstractButtonProps & {
  * An abstract class of a button for starting and stopping live streaming.
  */
 export default class AbstractLiveStreamButton<P: Props>
-    extends AbstractButton<P, *> {
+    extends Button<P, *> {
     accessibilityLabel = 'dialog.accessibilityLabel.liveStreaming';
     label = 'dialog.startLiveStreaming';
     toggledLabel = 'dialog.stopLiveStreaming';

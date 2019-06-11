@@ -1,12 +1,11 @@
 // @flow
+import { Button } from 'react-native'
 
 import { openDialog } from '../../base/dialog';
-import { AbstractButton } from '../../base/toolbox';
-import type { AbstractButtonProps } from '../../base/toolbox';
 
 import { KickRemoteParticipantDialog } from '.';
 
-export type Props = AbstractButtonProps & {
+export type Props = {
 
     /**
      * The redux {@code dispatch} function.
@@ -27,7 +26,7 @@ export type Props = AbstractButtonProps & {
 /**
  * An abstract remote video menu button which kicks the remote participant.
  */
-export default class AbstractKickButton extends AbstractButton<Props, *> {
+export default class AbstractKickButton extends Button<Props, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.kick';
     iconName = 'icon-kick';
     label = 'videothumbnail.kick';

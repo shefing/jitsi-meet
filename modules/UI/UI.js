@@ -23,11 +23,6 @@ import {
     setNotificationsEnabled,
     showWarningNotification
 } from '../../react/features/notifications';
-import {
-    dockToolbox,
-    setToolboxEnabled,
-    showToolbox
-} from '../../react/features/toolbox';
 
 const EventEmitter = require('events');
 
@@ -233,7 +228,6 @@ UI.start = function() {
             VideoLayout.setLocalVideoVisible(false);
         }
 
-        APP.store.dispatch(setToolboxEnabled(false));
         APP.store.dispatch(setNotificationsEnabled(false));
         UI.messageHandler.enablePopups(false);
     }
@@ -551,11 +545,6 @@ UI.emitEvent = (type, ...options) => eventEmitter.emit(type, ...options);
 
 UI.clickOnVideo = videoNumber => VideoLayout.togglePin(videoNumber);
 
-// Used by torture.
-UI.showToolbar = timeout => APP.store.dispatch(showToolbox(timeout));
-
-// Used by torture.
-UI.dockToolbar = dock => APP.store.dispatch(dockToolbox(dock));
 
 /**
  * Updates the displayed avatar for participant.

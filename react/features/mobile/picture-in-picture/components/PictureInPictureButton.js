@@ -1,14 +1,13 @@
 // @flow
+import { Button } from 'react-native'
 
 import { getAppProp } from '../../../base/app';
 import { translate } from '../../../base/i18n';
 import { connect } from '../../../base/redux';
-import { AbstractButton } from '../../../base/toolbox';
-import type { AbstractButtonProps } from '../../../base/toolbox';
 
 import { enterPictureInPicture } from '../actions';
 
-type Props = AbstractButtonProps & {
+type Props = {
 
     /**
      * Whether Picture-in-Picture is enabled or not.
@@ -24,7 +23,7 @@ type Props = AbstractButtonProps & {
 /**
  * An implementation of a button for entering Picture-in-Picture mode.
  */
-class PictureInPictureButton extends AbstractButton<Props, *> {
+class PictureInPictureButton extends Button<Props, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.pip';
     iconName = 'icon-menu-down';
     label = 'toolbar.pip';
