@@ -20,7 +20,6 @@ import { StyleType } from '../../../base/styles';
 import { getTrackByMediaTypeAndParticipant } from '../../../base/tracks';
 import { ConnectionIndicator } from '../../../connection-indicator';
 import { DisplayNameLabel } from '../../../display-name';
-import { RemoteVideoMenu } from '../../../remote-video-menu';
 
 import AudioMutedIndicator from './AudioMutedIndicator';
 import DominantSpeakerIndicator from './DominantSpeakerIndicator';
@@ -59,10 +58,6 @@ type Props = {
      */
     _onClick: ?Function,
 
-    /**
-     * Handles long press on the thumbnail.
-     */
-    _onShowRemoteVideoMenu: ?Function,
 
     /**
      * The color-schemed stylesheet of the feature.
@@ -127,7 +122,6 @@ class Thumbnail extends Component<Props> {
             _isModerator,
             _largeVideo: largeVideo,
             _onClick,
-            _onShowRemoteVideoMenu,
             _styles,
             _videoTrack: videoTrack,
             disablePin,
@@ -148,14 +142,10 @@ class Thumbnail extends Component<Props> {
         const participantInLargeVideo
             = participantId === largeVideo.participantId;
         const videoMuted = !videoTrack || videoTrack.muted;
-        const showRemoteVideoMenu = _isModerator && !participant.local;
 
         return (
             <Container
                 onClick = { disablePin ? undefined : _onClick }
-                onLongPress = {
-                    showRemoteVideoMenu
-                        ? _onShowRemoteVideoMenu : undefined }
                 style = { [
                     styles.thumbnail,
                     participant.pinned && !disablePin
@@ -222,7 +212,6 @@ class Thumbnail extends Component<Props> {
  * @param {Props} ownProps - The own props of the component.
  * @returns {{
  *     _onClick: Function,
- *     _onShowRemoteVideoMenu: Function
  * }}
  */
 function _mapDispatchToProps(dispatch: Function, ownProps): Object {
@@ -239,19 +228,6 @@ function _mapDispatchToProps(dispatch: Function, ownProps): Object {
             dispatch(
                 pinParticipant(participant.pinned ? null : participant.id));
         },
-
-        /**
-         * Handles long press on the thumbnail.
-         *
-         * @returns {void}
-         */
-        _onShowRemoteVideoMenu() {
-            const { participant } = ownProps;
-
-            dispatch(openDialog(RemoteVideoMenu, {
-                participant
-            }));
-        }
     };
 }
 
