@@ -21,7 +21,6 @@ import {
     TileView
 } from '../../../filmstrip';
 import { LargeVideo } from '../../../large-video';
-import { CalleeInfoContainer } from '../../../invite';
 
 import {
     AbstractConference,
@@ -158,13 +157,6 @@ class Conference extends AbstractConference<Props, *> {
                         ? <TileView onClick = { this._onClick } />
                         : <LargeVideo onClick = { this._onClick } />
                 }
-
-                {/*
-                  * If there is a ringing call, show the callee's info.
-                  */
-                    _reducedUI || <CalleeInfoContainer />
-                }
-
                 {/*
                   * The activity/loading indicator goes above everything, except
                   * the toolbox/toolbars and the dialogs.
